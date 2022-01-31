@@ -1,8 +1,10 @@
 <template>
-    <div>
-        <disco-box v-for="(disco, index) in discoList" 
-        :key="index" 
-        :disco="disco"/>
+    <div class="container">
+        <div>
+            <disco-box v-for="(disco,index) in discoList" 
+            :key="index" 
+            :disco="disco"/>
+        </div>
     </div>
 </template>
 
@@ -19,12 +21,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div{
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: space-around;
-    // text-align: center;
-    // padding: 25px;
-    height: 150px;
+.container{
+    width: 1200px;
+    margin: 0 auto;
+    div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    }
 }
 </style>
