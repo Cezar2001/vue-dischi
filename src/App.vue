@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <app-loader v-if="!flagLoaded" />
-    <nav-bar
-    @search="switchSelect" />
-    <!-- @search="filterResults" 
-    @reset="filterReset" -->
+    <nav-bar 
+    @genre="switchSelectGenre"
+    @authors="switchSelectAuthors"
+    />
     <main-container :discoList="discoFiltered"/>
   </div>
 </template>
@@ -37,22 +37,14 @@ export default {
     })
   },
   methods: {
-    // filterResults (keyword) {
-    //   this.discoFiltered = this.discoList.filter((disco) => {
-    //     return disco.title.toLowerCase().includes(keyword);
-    //   })
-    // },
-    // filterReset () {
-    //   this.discoFiltered = this.discoList
-    // }
-    // filterResults (keyword) {
-    //   this.discoFiltered = this.discoList.filter((disco) => {
-    //     return disco.genre.toLowerCase().includes(keyword);
-    //   })
-    // }
-    switchSelect(event) {
+    switchSelectGenre(event) {
       this.discoFiltered = this.discoList.filter((disco) => {
-      return disco.genre.toLowerCase().includes(event);
+      return disco.genre.toLowerCase().includes(event.target.value);
+      })
+    },
+    switchSelectAuthors(events) {
+      this.discoFiltered = this.discoList.filter((disco) => {
+      return disco.author.toLowerCase().includes(events.target.value);
       })
     }
   }
