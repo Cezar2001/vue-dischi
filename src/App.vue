@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <app-loader v-if="!flagLoaded" />
-    <nav-bar />
-    <main-container :discoList="discoList"/>
+    <nav-bar
+    @search="switchSelect" />
+    <!-- @search="filterResults" 
+    @reset="filterReset" -->
+    <main-container :discoList="discoFiltered"/>
   </div>
 </template>
 
@@ -22,14 +25,36 @@ export default {
   data() {
     return {
       discoList:[],
+      discoFiltered:[],
       flagLoaded: false
     }
   },
   mounted() {
       axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((element) => {
       this.discoList = element.data.response,
+      this.discoFiltered = element.data.response,
       this.flagLoaded = true;
     })
+  },
+  methods: {
+    // filterResults (keyword) {
+    //   this.discoFiltered = this.discoList.filter((disco) => {
+    //     return disco.title.toLowerCase().includes(keyword);
+    //   })
+    // },
+    // filterReset () {
+    //   this.discoFiltered = this.discoList
+    // }
+    // filterResults (keyword) {
+    //   this.discoFiltered = this.discoList.filter((disco) => {
+    //     return disco.genre.toLowerCase().includes(keyword);
+    //   })
+    // }
+    switchSelect(event) {
+      this.discoFiltered = this.discoList.filter((disco) => {
+      return disco.genre.toLowerCase().includes(event);
+      })
+    }
   }
 }
 </script>
